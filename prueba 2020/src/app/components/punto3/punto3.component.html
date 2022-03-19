@@ -1,0 +1,132 @@
+<form class="card">
+    <div class="card-header"> Pasajes </div>
+    <div class="card-body">
+        <div class="row form-group">
+            <label class="col-sm-12 col-md-4" for="dni">DNI</label>
+            <input class="form-control col-sm-12 col-md-8" type="number" id="dni" name="dni"
+                [(ngModel)]="pasaje.dniPasajero" />
+        </div>
+        <div class="row form-group">
+            <label class="col-sm-12 col-md-4" for="precio">Precio</label>
+            <input class="form-control col-sm-12 col-md-8" type="number" id="precio" name="precio"
+                [(ngModel)]="pasaje.precioPasaje" />
+        </div>
+        <div class="row">
+            <label class="col-sm-12 col-md-4" for="categoria">Categoria</label>
+            <select class="form-select input" id="categoria" name="categoria" [(ngModel)]="pasaje.categoriaPasajero"
+                class="form-select bg-light">
+                <option selected disabled>Sel. una opción</option>
+                <option value="jubilado">jubilado</option>
+                <option value="adulto">adulto</option>
+                <option value="menor">menor</option>
+            </select>
+        </div>
+        <br>
+        <div class="row">
+            <h3 *ngIf="(pasaje.precioPasaje!=null&&pasaje.categoriaPasajero!=null)">Precio Total: {{cambio()}} </h3>
+        </div>
+        <div class="row form-group">
+            <button type="button" class="btn btn-primary" (click)="enviarPasaje()">Enviar</button>
+
+        </div>
+    </div>
+</form>
+
+<br>
+<br>
+<div class="row">
+    <div class="col-md-10 col-sm-12 offset-md-1">
+    <table class="table  table-hover table-responsive " [mfData]="pasajes" #mf="mfDataTable" [mfRowsOnPage]="5">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <mfDefaultSorter by="idPasaje">ID</mfDefaultSorter>
+                </th>
+                <th scope="col">
+                    <mfDefaultSorter by="dniPasajero">DNI</mfDefaultSorter>
+                </th>
+                <th scope="col">
+                    <mfDefaultSorter by="categoriaPasajero">Categoria</mfDefaultSorter>
+                </th>
+                <th scope="col">
+                    <mfDefaultSorter by="precioPasaje">Precio</mfDefaultSorter>
+                </th>
+                <th scope="col">
+                    <mfDefaultSorter by="fechaCompra">Fecha</mfDefaultSorter>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of mf.data">
+                <td scope="col">{{item.idPasaje }}</td>
+                <td scope="col">{{item.dniPasajero}}</td>
+                <td scope="col">{{item.categoriaPasajero}}</td>
+                <td scope="col">{{item.precioPasaje | currency }}</td>
+                <td scope="col">{{item.fechaCompra | date: 'dd/MM/yyyy'}}</td>
+                <td scope="col" colspan="4">
+                    <button type="button" class="btn btn-danger " 
+                        (click)="delete(item)">Borrar</button>
+                    <button type="button" class="btn btn-warning " 
+                    (click)="modificarPasaje(item)">Modificar</button>
+                </td>
+               
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+        </tfoot>
+
+    </table>
+</div>
+</div>
+<br>
+<br>
+<div class="row form-group">
+    <button type="button" class="btn btn-danger" (click)="mostrar=!mostrar">Resumen</button>
+
+</div>
+    <div *ngIf="(mostrar==false)">
+    <table class="table  table-responsive">
+        <thead>
+           
+            <tr>
+                <th scope="col" colspan="2">Categoria</th>
+                <th scope="col" colspan="2" class="text-center">Cantidad</th>
+                <th scope="col" colspan="2" class="text-center">Monto</th>
+            </tr>
+
+        </thead>
+        <tbody >
+            <tr>
+                <th scope="row" colspan="2">Jubilado</th>
+                <td colspan="2" class="text-center">{{contJ}}</td>
+                <td colspan="2" class="text-center">{{montJ | currency}}</td>
+                
+            </tr>
+            <tr>
+                <th scope="row" colspan="2" >Adulto</th>
+                <td colspan="2" class="text-center">{{contA}}</td>
+                <td colspan="2" class="text-center">{{montA | currency}}</td>
+            </tr>
+            <tr>
+                <th scope="row" colspan="2" >Menor</th>
+                <td colspan="2" class="text-center">{{contM}}</td>
+                <td colspan="2" class="text-center">{{montM | currency}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="row" colspan="4" class="text-end" >Total</th>
+                <td colspan="2" class="text-center">{{montoTotal | currency}}</td>
+                
+            </tr>
+                
+            
+        </tfoot>
+    </table>
+</div>

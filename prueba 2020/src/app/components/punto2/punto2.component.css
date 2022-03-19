@@ -1,0 +1,17 @@
+.botones {
+    border-radius: 100%;
+    font-size: 17px;
+    color: black;
+}
+#cBot{
+    background-color: indigo;
+}
+#next{
+    background-color:lightseagreen;
+    border-radius: 20%;
+    font-size: 23px;
+}
+.contenedor{
+    background-color: skyblue;
+
+}

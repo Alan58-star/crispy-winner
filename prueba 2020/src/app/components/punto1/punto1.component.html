@@ -1,0 +1,26 @@
+<div class="row">
+
+    
+    <div class="text-center"> 
+        <h1 class="h1" style="text-align:  center; margin-bottom: 3% ;text-decoration: underline;">{{not.titulo}}</h1>
+        <img class=" w-50 text-center " src="assets/imagenes/{{not.imagen}}" alt="No hay imagen">
+    </div>
+    <br>
+    <div class="mt-4">
+        <p>{{not.texto}}</p>
+    </div>
+    
+    <br>
+    <div class="row ">
+
+        <button (click)='Anterior()' class="btn-outline-primary  col-4 " type="button">Anterior Noticia
+        </button>
+
+        <button (click)='Siguiente()' class="btn-outline-danger  col-4 offset-4 " type="button">
+            Siguiente Noticia
+        </button>
+
+    </div>
+
+
+</div>
